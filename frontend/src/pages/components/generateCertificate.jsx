@@ -5,6 +5,7 @@ import dayjs from "dayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateField } from "@mui/x-date-pickers/DateField";
+import Button from "../atoms/Button";
 
 export default function GenerateCertificate(props) {
   // const { certificate } = props;
@@ -34,7 +35,7 @@ export default function GenerateCertificate(props) {
   return (
     <div>
       <div>
-        <form onSubmit={submit} method="button">
+        <form>
           <TextField
             type="text"
             name="studentName"
@@ -81,8 +82,7 @@ export default function GenerateCertificate(props) {
             </DemoContainer>
           </LocalizationProvider>
 
-          <input type="submit" value="Submit" />
-          <br />
+          <Button type="submit" text="Submit" />
         </form>
       </div>
     </div>

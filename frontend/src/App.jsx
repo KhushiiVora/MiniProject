@@ -13,6 +13,8 @@ import Login from "./pages/components/Login";
 import SignUp from "./pages/components/SignUp";
 import ProtectedRoute from "./pages/components/ProtectedRoute";
 import InstituteProfile from "./pages/components/InstituteProfile";
+import GerenrateTemplate from "./pages/components/GenerateTemplate";
+import GenerateCertificate from "./pages/components/GenerateCertificate";
 
 function App() {
   const dispatch = useDispatch();
@@ -42,7 +44,7 @@ function App() {
           <Route path="login" element={<Login />} />
         </Route>
         <Route
-          path="profile"
+          path={`/profile/:id`}
           element={
             <ProtectedRoute user={studentUser || instituteUser}>
               {studentUser ? (
@@ -52,6 +54,14 @@ function App() {
               )}
             </ProtectedRoute>
           }
+        />
+        <Route
+          path={`/profile/:id/template-form`}
+          element={<GerenrateTemplate />}
+        />
+        <Route
+          path={`/profile/:id/certificate-form`}
+          element={<GenerateCertificate />}
         />
       </Routes>
     </BrowserRouter>
