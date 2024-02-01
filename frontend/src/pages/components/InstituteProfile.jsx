@@ -13,12 +13,12 @@ export default function InstituteProfile({ institute }) {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    axios
-      .get("/:id/templates", { withCredentials: true })
-      .then((res) => console.log(res))
-      .catch((error) => console.log(error));
-  });
+  // useEffect(() => {
+  //   axios
+  //     .get("/:id/templates", { withCredentials: true })
+  //     .then((res) => console.log(res))
+  //     .catch((error) => console.log(error));
+  // });
 
   async function handleClick(e) {
     await axios

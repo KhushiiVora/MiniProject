@@ -10,7 +10,7 @@ const templateSchema = new mongoose.Schema({
     required: true,
   },
   phrase: {
-    type: string,
+    type: String,
     required: true,
   },
   description: {

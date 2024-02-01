@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "../atoms/Button";
+import axios from "../../axiosConfig";
 
 export default function GerenrateTemplate() {
   const [formData, setFormData] = useState({
@@ -13,8 +14,16 @@ export default function GerenrateTemplate() {
     designation: "",
   });
 
-  const handleSubmit = () => {
-    // console.log(certificateDesc, certificateName);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setFormData({ ...formData, signature });
+
+    await axios
+      .post("/profile/template/new", formData, { withCredentials: true })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => console.log(error));
   };
 
   function handleChange(e) {

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "./axiosConfig";
@@ -13,7 +13,7 @@ import Login from "./pages/components/Login";
 import SignUp from "./pages/components/SignUp";
 import ProtectedRoute from "./pages/components/ProtectedRoute";
 import InstituteProfile from "./pages/components/InstituteProfile";
-import GerenrateTemplate from "./pages/components/GenerateTemplate";
+import GenerateTemplate from "./pages/components/GenerateTemplate";
 import GenerateCertificate from "./pages/components/GenerateCertificate";
 
 function App() {
@@ -57,7 +57,7 @@ function App() {
         />
         <Route
           path={`/profile/:id/template-form`}
-          element={<GerenrateTemplate />}
+          element={<GenerateTemplate />}
         />
         <Route
           path={`/profile/:id/certificate-form`}
