@@ -1,21 +1,27 @@
 import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import dayjs from "dayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateField } from "@mui/x-date-pickers/DateField";
+import Certificate, { downloadPDF } from "./Certificate";
 import Button from "../atoms/Button";
 
-export default function GenerateCertificate(props) {
-  // const { certificate } = props;
+export default function GenerateCertificate() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { instituteName, title, phrase, description, signature } =
+    location.state;
+  // console.log(template);
   const [formData, setFormData] = useState({
     studentName: "",
     studentWallet: "",
     rank: "",
     eventName: "",
   });
-  const [date, setDate] = useState(dayjs("2022-04-17"));
+  const [date, setDate] = useState(dayjs());
   function handleChange(e) {
     const value = e?.target?.value;
 
@@ -24,18 +30,20 @@ export default function GenerateCertificate(props) {
       [e?.target?.name]: value,
     });
   }
-  // useEffect(() => {
-  //   // certificateData();
-  //   setCertificateData({
-  //     certificateName: certificate.certificateName,
-  //     certificateDesc: certificate.certificateDesc,
-  //   });
-  // }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("kmcka");
+    const imgData = await downloadPDF();
+    //blockchain function
+    // backend calling to save the url of certificate in student model
+    navigate("/");
+  };
 
   return (
-    <div>
+    <>
       <div>
-        <form>
+        <form method="post" onSubmit={handleSubmit}>
           <TextField
             type="text"
             name="studentName"
@@ -81,10 +89,24 @@ export default function GenerateCertificate(props) {
               />
             </DemoContainer>
           </LocalizationProvider>
-
-          <Button type="submit" text="Submit" />
+          <Button type="submit" text="Generate" />
         </form>
       </div>
-    </div>
+      <div>
+        <Certificate
+          instituteName={instituteName}
+          title={title}
+          phrase={phrase}
+          description={description}
+          eventName={formData.eventName}
+          studentName={formData.studentName}
+          studentWallet={formData.studentWallet}
+          rank={formData.rank}
+          date={date}
+          signature={signature}
+          handleSubmit={handleSubmit}
+        />
+      </div>
+    </>
   );
 }

@@ -104,9 +104,6 @@ export default function GerenrateTemplate() {
         />
         <Button type="submit" text="Submit" />
       </form>
-      <br />
-      <p>Certificate Name: Certificate of {formData.certificateName}</p>
-      <p>Certificate Description: {formData.certificateDesc}</p>
     </div>
   );
 }
