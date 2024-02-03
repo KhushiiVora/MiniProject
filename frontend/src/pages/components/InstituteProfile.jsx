@@ -9,9 +9,14 @@ import Select from "@mui/material/Select";
 import Button from "../atoms/Button";
 import axios from "../../axiosConfig";
 import { useNavigate } from "react-router-dom";
+import { connect, set } from "mongoose";
+
 
 export default function InstituteProfile({ institute }) {
   const templates = useSelector((state) => state.template.templates);
+  const [walletaddress, setWalletaddress] = useState("");
+  const [loading, setLoading] = useState(false);
+
 
   const [selectedTemplate, setSelectedTemplate] = useState(0);
   const navigate = useNavigate();
@@ -25,6 +30,19 @@ export default function InstituteProfile({ institute }) {
   //     .then()
   //     .catch((error) => console.log(error));
   // }
+
+  // const connectWallet = async () => {
+  //   setLoading(true);
+  //    // Check if Web3 is injected by the browser
+  //    await window.ethereum.request({ method: 'eth_requestAccounts' }).then((accounts)=>{
+  //      setWalletaddress(accounts[0]);
+  //      setLoading(false);
+  //    });
+  //   //  console.log(web3);
+  // }
+
+
+
   return (
     <>
       {institute.instituteName}'s Profile page
@@ -70,6 +88,17 @@ export default function InstituteProfile({ institute }) {
           })
         }
       />
+      {/* {
+        loading ?( <div>Loading...</div>):(
+          walletaddress !== "" ? ( <div>Wallet address: {walletaddress}</div>)
+            : (<Button
+              type="button"
+              text="Connect Wallet"
+              onClick={connectWallet}
+              />)
+        )
+      } */}
+      
     </>
   );
 }

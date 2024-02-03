@@ -8,11 +8,16 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateField } from "@mui/x-date-pickers/DateField";
 import Certificate, { downloadPDF } from "./Certificate";
 import Button from "../atoms/Button";
+import axios from 'axios';
+const JWT = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiI5MjcwZTY3Ni1iZGVkLTRlN2EtYjgzMy04MmMwMTE1MDAyODciLCJlbWFpbCI6ImtyaXBuaWNrM0BnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwicGluX3BvbGljeSI6eyJyZWdpb25zIjpbeyJpZCI6IkZSQTEiLCJkZXNpcmVkUmVwbGljYXRpb25Db3VudCI6MX0seyJpZCI6Ik5ZQzEiLCJkZXNpcmVkUmVwbGljYXRpb25Db3VudCI6MX1dLCJ2ZXJzaW9uIjoxfSwibWZhX2VuYWJsZWQiOmZhbHNlLCJzdGF0dXMiOiJBQ1RJVkUifSwiYXV0aGVudGljYXRpb25UeXBlIjoic2NvcGVkS2V5Iiwic2NvcGVkS2V5S2V5IjoiZDlmODU2NDBjODI3MDc0ZTE3MDkiLCJzY29wZWRLZXlTZWNyZXQiOiI1YWM2ODkxYTI2MzhmZTNjZWY1ZGRlZDMwYzVlZDRiYmU0YzE4YjYxYTM5NDNkMmNhYWM2YjEzMzY0ZGQ5NDY3IiwiaWF0IjoxNzA2ODkxMjg3fQ.4mlbR8uKFxcsdtZFcqqCvt8arpg7UR5XDVDAeYQCw7E';
+import Web3 from "web3";
+import CertiABI from "../../certificate.json"
+
 
 export default function GenerateCertificate() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { instituteName, title, phrase, description, signature } =
+  const { instituteName, title, phrase, description, signature} =
     location.state;
   // console.log(template);
   const [formData, setFormData] = useState({
@@ -21,6 +26,7 @@ export default function GenerateCertificate() {
     rank: "",
     eventName: "",
   });
+  const [ipfsHashmetadata, setIpfsHashmetadata] = useState("");
   const [date, setDate] = useState(dayjs());
   function handleChange(e) {
     const value = e?.target?.value;
@@ -33,13 +39,89 @@ export default function GenerateCertificate() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("kmcka");
     const imgData = await downloadPDF();
+    await uploadimgToIPFS(imgData).then((res) => {
+      console.log("res.data",res.data.IpfsHash);
+      uploadMetadatatoIPFS(res.data.IpfsHash).then((res)=>{
+        setIpfsHashmetadata(res.data.IpfsHash);
+        console.log("ipfsHashmetadata",ipfsHashmetadata);
+        contractCall(res.data.IpfsHash);
+        // navigate(-1);
+      })
+    })
+    
     //blockchain function
     // backend calling to save the url of certificate in student model
-    navigate("/");
   };
 
+
+  const contractCall = async (hash) => { 
+    // const network = 'sepolia' // use rinkeby testnet
+        const contractAddress = "0x751a6De314636dBdaEeC0Df91671556AD6A49a1C";
+        // let provider = ethers.getDefaultProvider(network)
+        // const contract = new ethers.Contract(contractAddress, CertiABI, provider);
+        // const createReceipt = await contract.awardItem(formData.studentWallet,"https://ipfs.io/ipfs/"+hash, {gasLimit: 1000000});
+        // await createReceipt.wait();
+        // console.log(`Tx successful with hash: ${createReceipt.hash}`);
+        try{
+          await window.ethereum.request({ method: 'eth_requestAccounts' }).then((accounts)=>{
+            const web3 = new Web3(window.ethereum)
+            const contract = new web3.eth.Contract(CertiABI, contractAddress);
+            contract.methods.awardItem(formData.studentWallet,"https://ipfs.io/ipfs/"+hash).send({from: accounts[0]}).then((transactonHash,error) => {
+            console.log(transactonHash);
+        }).catch(error => {
+          console.log(error);
+        });
+          });
+        }catch(error){
+          console.log(error);
+        }
+  }
+
+
+  const uploadimgToIPFS = async (imgData) => {
+    const image = new FormData();
+    const blob = await (await fetch(imgData)).blob();
+    image.append('file', blob);
+    try {
+      const res = await axios.post('https://api.pinata.cloud/pinning/pinFileToIPFS', image, {
+        maxBodyLength: "Infinity",
+        headers: {
+          'Content-Type': `multipart/form-data; boundary=${formData._boundary}`,
+          Authorization: JWT
+        }
+      });
+      return res;
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const uploadMetadatatoIPFS = async (hash) => {
+    const data = JSON.stringify({
+      pinataContent: {
+        name: formData.studentName,
+        description: description,
+        image: "https://ipfs.io/ipfs/"+hash,
+      },
+      pinataMetadata: {
+        name: "metadata.json"
+      }
+    })
+    
+      try{
+        const res = await axios.post("https://api.pinata.cloud/pinning/pinJSONToIPFS", data, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: JWT
+          }
+        });
+        return res;
+      } catch (error) {
+        console.log(error);
+      }
+  }
   return (
     <>
       <div>
