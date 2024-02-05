@@ -12,7 +12,8 @@ const templateValidationSchema = Joi.object().keys({
     .required(),
   description: Joi.string()
     .regex(/^[a-zA-Z0-9\s]+$/)
-    .min(10)
+    .min(30)
+    .max(350)
     .required(),
   signature: {
     name: Joi.string()

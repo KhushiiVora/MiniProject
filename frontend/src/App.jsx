@@ -7,6 +7,7 @@ import { saved as studentSaved } from "./state/studentSlice";
 import { saved as instituteSaved } from "./state/instituteSlice";
 import { restored as templateRestored } from "./state/templateSlice";
 
+import MainNavbar from "./pages/components/MainNavbar";
 import Navbar from "./pages/components/Navbar";
 import Home from "./pages/components/Home";
 import StudentProfile from "./pages/components/StudentProfile";
@@ -44,32 +45,42 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={<Navbar user={studentUser || instituteUser} />}
+          element={
+            studentUser || instituteUser ? (
+              <Navbar user={studentUser || instituteUser} />
+            ) : (
+              <MainNavbar />
+            )
+          }
         >
           <Route index element={<Home />} />
           <Route path="signup" element={<SignUp />} />
           <Route path="login" element={<Login />} />
         </Route>
+
         <Route
-          path={"/profile/:id"}
-          element={
-            <ProtectedRoute user={studentUser || instituteUser}>
-              {studentUser ? (
-                <StudentProfile student={studentUser} />
-              ) : (
-                <InstituteProfile institute={instituteUser} />
-              )}
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path={`/profile/:id/template-form`}
-          element={<GenerateTemplate />}
-        />
-        <Route
-          path={`/profile/:id/certificate-form`}
-          element={<GenerateCertificate />}
-        />
+          path="/profile"
+          element={<Navbar user={studentUser || instituteUser} />}
+        >
+          <Route
+            path={":id"}
+            element={
+              <ProtectedRoute user={studentUser || instituteUser}>
+                {studentUser ? (
+                  <StudentProfile student={studentUser} />
+                ) : (
+                  <InstituteProfile institute={instituteUser} />
+                )}
+              </ProtectedRoute>
+            }
+          />
+          <Route path={`:id/template-form`} element={<GenerateTemplate />} />
+          <Route
+            path={`:id/certificate-form`}
+            element={<GenerateCertificate />}
+          />
+        </Route>
+        {/* <Route path="*" element/> */}
       </Routes>
     </BrowserRouter>
   );
