@@ -26,7 +26,7 @@ export default function GenerateCertificate() {
     rank: "",
     eventName: "",
   });
-  const [ipfsHashmetadata, setIpfsHashmetadata] = useState("");
+
   const [date, setDate] = useState(dayjs());
   function handleChange(e) {
     const value = e?.target?.value;
@@ -43,9 +43,7 @@ export default function GenerateCertificate() {
     await uploadimgToIPFS(imgData).then((res) => {
       console.log("res.data",res.data.IpfsHash);
       uploadMetadatatoIPFS(res.data.IpfsHash).then((res)=>{
-        setIpfsHashmetadata(res.data.IpfsHash);
-        console.log("ipfsHashmetadata",ipfsHashmetadata);
-        contractCall(res.data.IpfsHash);
+        contractCall(res.data.IpfsHash)
         // navigate(-1);
       })
     })
@@ -56,19 +54,14 @@ export default function GenerateCertificate() {
 
 
   const contractCall = async (hash) => { 
-    // const network = 'sepolia' // use rinkeby testnet
-        const contractAddress = "0x751a6De314636dBdaEeC0Df91671556AD6A49a1C";
-        // let provider = ethers.getDefaultProvider(network)
-        // const contract = new ethers.Contract(contractAddress, CertiABI, provider);
-        // const createReceipt = await contract.awardItem(formData.studentWallet,"https://ipfs.io/ipfs/"+hash, {gasLimit: 1000000});
-        // await createReceipt.wait();
-        // console.log(`Tx successful with hash: ${createReceipt.hash}`);
+        // const contractAddress = "0x751a6De314636dBdaEeC0Df91671556AD6A49a1C";
+        const contractAddress = "0x23d6E35159Cc6979667577d50F1148f30bb8E01d";
         try{
           await window.ethereum.request({ method: 'eth_requestAccounts' }).then((accounts)=>{
             const web3 = new Web3(window.ethereum)
             const contract = new web3.eth.Contract(CertiABI, contractAddress);
             contract.methods.awardItem(formData.studentWallet,"https://ipfs.io/ipfs/"+hash).send({from: accounts[0]}).then((transactonHash,error) => {
-            console.log(transactonHash);
+              console.log(transactonHash.events.MetadataUpdate.returnValues._tokenId);  
         }).catch(error => {
           console.log(error);
         });

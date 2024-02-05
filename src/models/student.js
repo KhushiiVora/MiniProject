@@ -20,7 +20,7 @@ const studentSchema = new mongoose.Schema({
     unique: true,
   },
   // certificates: {
-  //   type: [mongoose.SchemaTypes.ObjectId],
+  //   type: [],
   //   ref: "Certificate",
   // },
 });
