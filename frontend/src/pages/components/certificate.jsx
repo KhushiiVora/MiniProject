@@ -3,6 +3,7 @@ import dayjs from "dayjs";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import "../../styles/certificate.css";
+import "../../styles/certificate-media.css"
 import Button from "../atoms/Button";
 
 const downloadPDF = async () => {

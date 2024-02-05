@@ -29,8 +29,9 @@ function App() {
       .then((user) => {
         if (user.instituteName) {
           console.log("initial template", user.templateIds);
-          dispatch(instituteSaved(user));
           dispatch(templateRestored(user.templateIds));
+          delete user.templateIds;
+          dispatch(instituteSaved(user));
         } else {
           dispatch(studentSaved(user));
         }
