@@ -6,9 +6,11 @@ export default function MainNavbar() {
     <>
       <StyledNavbar>
         LOGO
-        <StyledNavLink to="/">Home</StyledNavLink>
-        <StyledNavLink to="/signup">Sign Up</StyledNavLink>
-        <StyledNavLink to="/login">Login</StyledNavLink>
+        <div>
+          <StyledNavLink to="/">Home</StyledNavLink>
+          <StyledNavLink to="/signup">Sign Up</StyledNavLink>
+          <StyledNavLink to="/login">Login</StyledNavLink>
+        </div>
       </StyledNavbar>
       <Outlet />
     </>
