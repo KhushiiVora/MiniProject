@@ -5,6 +5,12 @@ import Web3 from "web3";
 import certiABI from "../../certificate.json";
 import CertificateCard from "./CertificateCard";
 
+import {StyledPage} from "../../styles/jsx/studentProfile.styles";
+import { Application } from '@splinetool/runtime';
+
+
+
+
 export default function StudentProfile({ student }) {
   const contractAddress = "0x23d6E35159Cc6979667577d50F1148f30bb8E01d";
   const [walletAddress, setWalletAddress] = useState("");
@@ -18,15 +24,8 @@ export default function StudentProfile({ student }) {
 
   useEffect(() => {
     fetchData();
-    // console.log(certificatesData);
+    console.log(certificatesData.length);
   }, [certificateIDs]);
-
-  async function handleClick(e) {
-    await axios
-      .get("/profile", { withCredentials: true })
-      .then()
-      .catch((error) => console.log(error));
-  }
 
   const showCertificates = async () => {
     if (isConnected) {
@@ -60,20 +59,6 @@ export default function StudentProfile({ student }) {
   };
 
   const fetchData = async () => {
-    // let d = []
-    // certificateIDs.map(async (certificateId)=>{
-    //   const web3 = new Web3(window.ethereum);
-    // const contract = new web3.eth.Contract(certiABI, contractAddress);
-    //   const url = await contract.methods.tokenURI(certificateId).call().then((url) => {
-    //     return url;
-    //   })
-    // const t = await axios.get(url).then((res) => {
-    //   return res.data;
-    // })
-    // // console.log(t);
-    // d.push(t);
-    // })
-    // setCertificatesData(d);
     try {
       const web3 = new Web3(window.ethereum);
       const contract = new web3.eth.Contract(certiABI, contractAddress);
@@ -94,14 +79,17 @@ export default function StudentProfile({ student }) {
 
   return (
     <>
-      Profile page
-      <Button type="submit" text="click me" onClick={handleClick} />
+    
       {walletAddress !== "" ? (
         `Connected As: ${walletAddress}`
       ) : (
-        <Button type="button" text="connect wallet" onClick={connectwallet} />
+        <StyledPage>
+          <h1>Connect your wallet to see your certificates </h1>
+          <Button type="button" text="connect wallet" onClick={connectwallet} />
+        </StyledPage>
+     
       )}
-      {certificatesData.map((certificate) => (
+      {isConnected &&  certificatesData.map((certificate) => (
         <CertificateCard
           key={certificate.image} // Make sure to provide a unique key for each component
           image={certificate.image}
@@ -109,6 +97,10 @@ export default function StudentProfile({ student }) {
           description={certificate.description}
         />
       ))}
+      {isConnected && !certificatesData.length && 
+        <p>Sorry but you are not worthy of living.</p>
+      }
+      
     </>
   );
 }

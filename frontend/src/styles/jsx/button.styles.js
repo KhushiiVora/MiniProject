@@ -6,7 +6,7 @@ const StyledButton = styled.button`
   color: ${(props) => props.theme.light.secondaryText};
   padding: 0.5rem;
   width: 100%;
-  margin: 1rem;
+ 
 `;
 
 export default StyledButton;

@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
-const StyledNavbar = styled.nav`
+const StyledMainNavbar = styled.nav`
   font-size: 1.2rem;
-  height: 9vh;
+  height: 9%;
   top: 0;
   position: sticky;
   display: flex;
@@ -29,4 +29,18 @@ const StyledNavLink = styled(NavLink)`
   }
 `;
 
-export { StyledNavbar, StyledNavLink };
+const StyledNavbar = styled.nav`
+font-size: 1.2rem;
+
+top: 0;
+position: sticky;
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 1rem;
+background-color: ${(props) => props.theme.light.primary};
+backdrop-filter: blur(8px);
+z-index: 100;
+`
+
+export { StyledMainNavbar,StyledNavbar, StyledNavLink };

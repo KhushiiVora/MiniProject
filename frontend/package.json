@@ -17,6 +17,7 @@
     "@mui/material": "^5.15.3",
     "@mui/x-date-pickers": "^6.19.2",
     "@reduxjs/toolkit": "^2.1.0",
+    "@splinetool/runtime": "^1.0.50",
     "axios": "^1.6.5",
     "dayjs": "^1.11.10",
     "ethers": "^6.10.0",

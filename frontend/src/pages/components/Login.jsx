@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { saved as studentSaved } from "../../state/studentSlice";
@@ -42,6 +42,13 @@ export default function Login() {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+
+
+  useEffect(() => {
+    const canvas = document.getElementById('canvas');
+const app = new Application(canvas);
+app.load('https://prod.spline.design/rgECT3Z9ivrBOmHV/scene.splinecode');
+  },[])
 
   function handleChange(e) {
     const value = e?.target?.value;
@@ -92,9 +99,12 @@ export default function Login() {
       });
   }
 
+
   return (
     <StyledDiv>
-      <div></div>
+      <div>
+      <Canvas id="canvas"></Canvas>
+      </div>
       <form onSubmit={handleSubmit}>
         <h1>Login page</h1>
         <TextField

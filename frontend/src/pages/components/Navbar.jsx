@@ -10,6 +10,7 @@ export default function Navbar({ user }) {
           <StyledNavLink to="/">Home</StyledNavLink>
           <StyledNavLink to={`/profile/${user?._id}`}>Profile</StyledNavLink>
         </div>
+        
       </StyledNavbar>
       <Outlet />
     </>
