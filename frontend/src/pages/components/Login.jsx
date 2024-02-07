@@ -21,6 +21,8 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
+import { toast, Slide, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useTheme } from "styled-components";
 
 export default function Login() {
@@ -74,7 +76,20 @@ export default function Login() {
 
         navigate(`/profile/${res.data._id}`);
       })
-      .catch((e) => console.log(e));
+      .catch((e) => {
+        console.log(e.response.data);
+        toast.error(e.response.data, {
+          position: "bottom-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          transition: Slide,
+        });
+      });
   }
 
   return (
@@ -136,6 +151,7 @@ export default function Login() {
           />
         </FormGroup>
         <Button type="submit" text="Login" />
+        <ToastContainer />
       </form>
     </StyledDiv>
   );
