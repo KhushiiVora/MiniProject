@@ -49,9 +49,9 @@ export default function Login() {
 
 
   useEffect(() => {
-    const canvas = document.getElementById('canvas');
-const app = new Application(canvas);
-app.load('https://prod.spline.design/rgECT3Z9ivrBOmHV/scene.splinecode');
+//     const canvas = document.getElementById('canvas');
+// const app = new Application(canvas);
+// app.load('https://prod.spline.design/rgECT3Z9ivrBOmHV/scene.splinecode');
   },[])
 
   function handleChange(e) {

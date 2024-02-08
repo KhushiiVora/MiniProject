@@ -90,7 +90,6 @@ export default function StudentProfile({ student }) {
           theme: "colored",
           transition: Slide,
         });
-        setLoading(false);
      
     }
   };
@@ -109,14 +108,26 @@ export default function StudentProfile({ student }) {
 
       const certificatesDataArray = await Promise.all(certificateDataPromises);
       setCertificatesData(certificatesDataArray);
+      setLoading(false);
     } catch (error) {
+      toast.error("Error fetching certificate data", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Slide,
+      });
+      setLoading(false);
       console.error("Error fetching certificate data:", error);
     }
   };
 
   return (
     <>
-    
       {walletAddress !== "" ? (
         <div style={{marginTop: "10px", backdropFilter: "blur(10px)", fontSize: "1.5em", textAlign: "center", marginBottom: "10px"}}>
           Connected As: {walletAddress}
@@ -143,7 +154,7 @@ export default function StudentProfile({ student }) {
       </StyledCards> )
       
       }
-      {isConnected && !certificatesData.length && 
+      {isConnected && !certificatesData.length && !loading && 
         <p>Sorry but you are not worthy of living.</p>
       }
       <ToastContainer />

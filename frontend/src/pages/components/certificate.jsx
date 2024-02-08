@@ -24,7 +24,6 @@ const Certificate = ({
   description,
   studentName,
   studentWallet,
-  rank,
   eventName,
   date,
   signature,

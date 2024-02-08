@@ -3,4 +3,5 @@
   text-align: center;
   box-sizing: border-box;
   background-color: #e4e4e4;
+  min-height: 100vh;
 }
