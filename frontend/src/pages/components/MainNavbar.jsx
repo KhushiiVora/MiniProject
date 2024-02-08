@@ -1,11 +1,11 @@
 import { Outlet } from "react-router-dom";
-import { StyledMainNavbar, StyledNavLink } from "../../styles/jsx/navbar.styles";
-
+import { StyledMainNavbar, StyledNavLink, StyledLogo } from "../../styles/jsx/navbar.styles";
+// import logo from "../../../public/logo.png"
 export default function MainNavbar() {
   return (
-    <>
+    <div style={{backgroundColor:"#e4e4e4"}}>
       <StyledMainNavbar>
-        LOGO
+        <StyledLogo src="../../../public/logo.png" alt="logo" />
         <div>
           <StyledNavLink to="/">Home</StyledNavLink>
           <StyledNavLink to="/signup">Sign Up</StyledNavLink>
@@ -13,6 +13,6 @@ export default function MainNavbar() {
         </div>
       </StyledMainNavbar>
       <Outlet />
-    </>
+    </div>
   );
 }

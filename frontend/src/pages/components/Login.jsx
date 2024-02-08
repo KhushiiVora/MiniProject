@@ -11,6 +11,10 @@ import textfieldTheme from "../../styles/jsx/textfield.styles";
 
 import TextField from "@mui/material/TextField";
 
+import { Application } from '@splinetool/runtime';
+
+
+
 import { FormControl } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import OutlinedInput from "@mui/material/OutlinedInput";
@@ -103,7 +107,7 @@ app.load('https://prod.spline.design/rgECT3Z9ivrBOmHV/scene.splinecode');
   return (
     <StyledDiv>
       <div>
-      <Canvas id="canvas"></Canvas>
+      <canvas id="canvas"/>
       </div>
       <form onSubmit={handleSubmit}>
         <h1>Login page</h1>

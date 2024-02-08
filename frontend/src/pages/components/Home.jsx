@@ -1,9 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { Link } from 'react-router-dom';
 import { Container,Section,ShortInfo,CTA,Button,HowItWorks,FAQs,Contact,Footer } from "../../styles/jsx/home.styles";
+import { Application } from '@splinetool/runtime';
 
+// import anything from "../../../public/room_girl_reading_copy"
 export default function Home() {
+    useEffect(() => {
+
+const canvas = document.getElementById('canvas3d');
+const app = new Application(canvas);
+app.load('https://prod.spline.design/vmFcemeil9QYRkFc/scene.splinecode');
+// app.load('../../../public/room_girl_reading_copy')
+
+    }, []);
   return (  
   <Container>
     <Section>
@@ -11,6 +21,9 @@ export default function Home() {
             <h1>Welcome to our Blockchain Certification Platform</h1>
             <p>Empower your education with secure and verifiable blockchain-based certifications.</p>
         </ShortInfo>
+        <div className="canvas-container">
+            <canvas id="canvas3d"/>
+        </div>
     </Section>
     <Section>
         <CTA>
@@ -30,7 +43,8 @@ export default function Home() {
             <h2>Frequently Asked Questions</h2>
             <div className="faq">
                 <h3>How do I generate a certificate?</h3>
-                <p>To generate a certificate, simply log in to your institute account, fill out the necessary details, and click on the "Generate Certificate" button.</p>
+                <button onClick={()=>{(<p>To generate a certificate, simply log in to your institute account, fill out the necessary details, and click on the "Generate Certificate" button.</p>)}}>+</button>
+                
             </div>
             <div className="faq">
                 <h3>Can I transfer my certificate to another wallet?</h3>

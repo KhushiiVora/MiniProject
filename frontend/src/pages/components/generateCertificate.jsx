@@ -47,14 +47,10 @@ export default function GenerateCertificate() {
         // navigate(-1);
       })
     })
-    
-    //blockchain function
-    // backend calling to save the url of certificate in student model
   };
 
 
   const contractCall = async (hash) => { 
-        // const contractAddress = "0x751a6De314636dBdaEeC0Df91671556AD6A49a1C";
         const contractAddress = "0x23d6E35159Cc6979667577d50F1148f30bb8E01d";
         try{
           await window.ethereum.request({ method: 'eth_requestAccounts' }).then((accounts)=>{

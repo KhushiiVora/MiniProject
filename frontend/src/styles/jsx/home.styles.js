@@ -9,10 +9,22 @@ const Container = styled.div`
 const Section = styled.section`
     padding: 50px 0;
     background-color: ${props => props.theme.light.primary};
+    display: flex;
+    justify-content: center;
+
+    > div{
+        width:50%;
+    }
 `;
 
 const ShortInfo = styled.div`
-    text-align: center;
+    text-align: center;\
+    
+    > h1 {
+        text-shadow: 3px 3px 2px rgba(0, 0, 0, 0.3);
+        font-weight: bold;
+    }
+
 `;
 
 const CTA = styled.div`

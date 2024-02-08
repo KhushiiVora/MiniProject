@@ -14,4 +14,11 @@ const StyledPage = styled.div`
     box-shadow: 0px 0px 2px 4px #606060;
 `
 
-export {StyledPage};
+const StyledCards = styled.div`
+display: flex;
+flex-direction: row;
+justify-content: space-evenly;
+align-items: center;
+`
+
+export {StyledPage , StyledCards};

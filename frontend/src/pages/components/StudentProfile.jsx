@@ -5,9 +5,10 @@ import Web3 from "web3";
 import certiABI from "../../certificate.json";
 import CertificateCard from "./CertificateCard";
 
-import {StyledPage} from "../../styles/jsx/studentProfile.styles";
-import { Application } from '@splinetool/runtime';
+import {StyledPage, StyledCards} from "../../styles/jsx/studentProfile.styles";
 
+import LinearProgress from '@mui/material/LinearProgress';
+import { toast, Slide, ToastContainer } from "react-toastify";
 
 
 
@@ -17,7 +18,7 @@ export default function StudentProfile({ student }) {
   const [isConnected, setIsConnected] = useState(false);
   const [certificateIDs, setCertificateIDs] = useState([]);
   const [certificatesData, setCertificatesData] = useState([]);
-
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     showCertificates();
   }, [isConnected]);
@@ -41,20 +42,56 @@ export default function StudentProfile({ student }) {
   };
 
   const connectwallet = async () => {
-    if (window.ethereum) {
-      try {
+    try {
+      setLoading(true);
+      if (window.ethereum) {
         await window.ethereum
           .request({ method: "eth_requestAccounts" })
           .then((accounts) => {
             setWalletAddress(accounts[0]);
             setIsConnected(true);
+            toast.success("Wallet Connected Sucessfully", {
+              position: "bottom-center",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+              transition: Slide,
+            });
           })
           .catch((error) => {
             console.log(error);
+            toast.error(error.message, {
+              position: "bottom-center",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+              transition: Slide,
+            });
           });
+        setLoading(false);}
       } catch (error) {
         console.log(error);
-      }
+        toast.error("Something went wrong", {
+          position: "bottom-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          transition: Slide,
+        });
+        setLoading(false);
+     
     }
   };
 
@@ -81,26 +118,35 @@ export default function StudentProfile({ student }) {
     <>
     
       {walletAddress !== "" ? (
-        `Connected As: ${walletAddress}`
+        <div style={{marginTop: "10px", backdropFilter: "blur(10px)", fontSize: "1.5em", textAlign: "center", marginBottom: "10px"}}>
+          Connected As: {walletAddress}
+        </div>
       ) : (
-        <StyledPage>
-          <h1>Connect your wallet to see your certificates </h1>
-          <Button type="button" text="connect wallet" onClick={connectwallet} />
-        </StyledPage>
-     
+          loading ? (
+            <LinearProgress />
+          ) :(<StyledPage>
+            <h1>Connect your wallet to see your certificates </h1>
+            <Button type="button" text="connect wallet" onClick={connectwallet} />
+          </StyledPage>)
       )}
-      {isConnected &&  certificatesData.map((certificate) => (
+      {
+      
+      isConnected && (<StyledCards> {certificatesData.map((certificate) => (
         <CertificateCard
           key={certificate.image} // Make sure to provide a unique key for each component
           image={certificate.image}
           name={certificate.name}
           description={certificate.description}
         />
+  
       ))}
+      </StyledCards> )
+      
+      }
       {isConnected && !certificatesData.length && 
         <p>Sorry but you are not worthy of living.</p>
       }
-      
+      <ToastContainer />
     </>
   );
 }
