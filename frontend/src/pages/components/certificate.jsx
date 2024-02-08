@@ -1,10 +1,10 @@
-import { useState } from "react";
+// import { useState } from "react";
 import dayjs from "dayjs";
-import jsPDF from "jspdf";
+// import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import "../../styles/certificate.css";
 import "../../styles/certificate-media.css"
-import Button from "../atoms/Button";
+// import Button from "../atoms/Button";
 
 const downloadPDF = async () => {
   const capture = document.querySelector(".certificate-container");
