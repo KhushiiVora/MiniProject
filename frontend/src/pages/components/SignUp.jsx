@@ -22,7 +22,7 @@ import Checkbox from "@mui/material/Checkbox";
 import { toast, Slide, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useTheme } from "styled-components";
-import signupImage from "../../../public/signup.svg";
+import signupImage from "/signup.svg";
 
 
 export default function SignUp() {
@@ -99,7 +99,6 @@ export default function SignUp() {
       <div>
       <img src={signupImage} alt="login" />
       </div>
-      <div>
         <form onSubmit={handleSubmit}>
           <h1>SignUp page</h1>
           <TextField
@@ -175,7 +174,6 @@ export default function SignUp() {
           <Button type="submit" text="Sign Up" />
           <ToastContainer />
         </form>
-      </div>
     </StyledDiv>
   );
 }

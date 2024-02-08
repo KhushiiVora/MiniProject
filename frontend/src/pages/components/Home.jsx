@@ -26,10 +26,7 @@ export default function Home() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const canvas = document.getElementById("canvas3d");
-    const app = new Application(canvas);
-    app.load("https://prod.spline.design/vmFcemeil9QYRkFc/scene.splinecode");
-    // app.load('../../../public/room_girl_reading_copy')
+    
 
     /* LOGOUT STATE */
     if (location?.state?.instituteName) {
@@ -50,13 +47,13 @@ export default function Home() {
             certifications.
           </p>
         </ShortInfo>
-        <div className="canvas-container">
-          <canvas id="canvas3d" />
+        <div >
+          <img src="/certificate.svg"/>
         </div>
       </Section>
       <Section>
+        <h2>Ready to get certified?</h2>
         <CTA>
-          <h2>Ready to get certified?</h2>
           <Button to="/signup">Sign Up</Button>
           <Button to="/login">Log In</Button>
         </CTA>

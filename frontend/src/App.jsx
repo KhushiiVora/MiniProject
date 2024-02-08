@@ -18,7 +18,7 @@ import ProtectedRoute from "./pages/components/ProtectedRoute";
 import InstituteProfile from "./pages/components/InstituteProfile";
 import GenerateTemplate from "./pages/components/GenerateTemplate";
 import GenerateCertificate from "./pages/components/GenerateCertificate";
-
+import VerifyCertificate from "./pages/components/Verify";
 
 function App() {
   const dispatch = useDispatch();
@@ -58,6 +58,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="signup" element={<SignUp />} />
           <Route path="login" element={<Login />} />
+          <Route path="verify" element={<VerifyCertificate />} />
         </Route>
 
         <Route

@@ -5,9 +5,10 @@ export default function MainNavbar() {
   return (
     <div>
       <StyledMainNavbar>
-        <StyledLogo src="../../../public/logo.png" alt="logo" />
+        <StyledLogo src="/logo.png" alt="logo" />
         <div>
           <StyledNavLink to="/">Home</StyledNavLink>
+          <StyledNavLink to={`/verify`}>VerifyCertificate</StyledNavLink>
           <StyledNavLink to="/signup">Sign Up</StyledNavLink>
           <StyledNavLink to="/login">Login</StyledNavLink>
         </div>

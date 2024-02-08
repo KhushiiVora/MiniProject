@@ -11,7 +11,7 @@ import textfieldTheme from "../../styles/jsx/textfield.styles";
 
 import TextField from "@mui/material/TextField";
 
-import loginImage from "../../../public/login.svg";
+import loginImage from "/login.svg";
 
 
 import { FormControl } from "@mui/material";

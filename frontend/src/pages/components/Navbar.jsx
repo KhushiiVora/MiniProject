@@ -21,10 +21,11 @@ export default function Navbar({ user }) {
   return (
     <div>
       <StyledNavbar>
-        <StyledLogo src="../../../public/logo.png" alt="logo" />
+        <StyledLogo src="/logo.png" alt="logo" />
         <div>
           <StyledNavLink to="/">Home</StyledNavLink>
           <StyledNavLink to={`/profile/${user?._id}`}>Profile</StyledNavLink>
+          <StyledNavLink to={`/verify`}>VerifyCertificate</StyledNavLink>
           {/* <StyledNavLink to={}>Log Out</StyledNavLink> */}
         </div>
           <Button type="button" text="Log Out" onClick={handleLogout} />
