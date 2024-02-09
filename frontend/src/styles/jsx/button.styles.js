@@ -19,9 +19,6 @@ const StyledButton = styled.button`
     box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.5);
     transform: translateY(5px);
   }
-  &:hover {
-    font-weight: bold;
-  }
   /* :active {
   transform: translateY(-2px);
 } */

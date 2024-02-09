@@ -39,8 +39,7 @@ const StyledDiv = styled.div`
 
   > form > h1 {
     margin: 1rem;
-    
-
+    color: ${(props) => props.theme.light.secondary};
   }
 `;
 
