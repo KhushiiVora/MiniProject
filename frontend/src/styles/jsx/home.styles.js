@@ -73,6 +73,7 @@ const FAQs = styled.div`
   text-align: center;
   > h2 {
     font-size: 1.5rem;
+    margin-bottom: 1rem;
     color: ${({ theme }) => theme.light.secondary};
   }
 `;
@@ -81,15 +82,17 @@ const Contact = styled.div`
   text-align: center;
   > h2 {
     font-size: 1.5rem;
+    margin-bottom: 1rem;
     color: ${({ theme }) => theme.light.secondary};
+  }
+  >p{
+    margin-bottom: 1rem;
   }
 `;
 
-const Footer = styled.footer`
-  background-color: ${(props) => props.theme.light.primary};
-  color: ${(props) => props.theme.light.secondaryText};
-  padding: 20px 0;
-  text-align: center;
+const Section2 = styled.section`
+  padding: 2rem 10rem 2rem 10rem;
+  
 `;
 
 export {
@@ -100,5 +103,5 @@ export {
   HowItWorks,
   FAQs,
   Contact,
-  Footer,
+  Section2
 };

@@ -5,6 +5,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { cleared as studentClear } from "../../state/studentSlice";
 import { cleared as instituteClear } from "../../state/instituteSlice";
 import { cleared as templateClear } from "../../state/templateSlice";
+
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import Typography from '@mui/material/Typography';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+
+
+import ContactForm from "./contactus";
+import Footer from "./Footer";
+
 import Button from "../atoms/Button";
 import { Link } from "react-router-dom";
 import {
@@ -14,7 +25,7 @@ import {
   HowItWorks,
   FAQs,
   Contact,
-  Footer,
+  Section2
 } from "../../styles/jsx/home.styles";
 import { Application } from "@splinetool/runtime";
 
@@ -78,49 +89,62 @@ export default function Home() {
           <img src="/howItWorks.svg" />
         </div>
       </Section>
-      <Section>
+      <Section2>
         <FAQs>
           <h2>Frequently Asked Questions</h2>
-          <div className="faq">
-            <h3>How do I generate a certificate?</h3>
-            <button
-              onClick={() => {
-                <p>
-                  To generate a certificate, simply log in to your institute
-                  account, fill out the necessary details, and click on the
-                  "Generate Certificate" button.
-                </p>;
-              }}
-            >
-              +
-            </button>
-          </div>
-          <div className="faq">
-            <h3>Can I transfer my certificate to another wallet?</h3>
-            <p>
-              Yes, you can transfer your certificate to another wallet by
-              clicking on the "Transfer" button in your student dashboard and
-              entering the recipient's wallet address.
-            </p>
-          </div>
+          <Accordion>
+        <AccordionSummary
+          expandIcon={<ArrowDropDownIcon />}
+          aria-controls="panel2-content"
+          id="panel2-header"
+        >
+          <Typography>How do I generate certificate?</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            You have to signup/login as institute to generate the certificate. Only institute can generate the certificate.
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ArrowDropDownIcon />}
+          aria-controls="panel2-content"
+          id="panel2-header"
+        >
+          <Typography> How do I do I get certificate ID?</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            You have to signup/login and connect your wallet to see the your certificates and certificate IDs.
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ArrowDropDownIcon />}
+          aria-controls="panel2-content"
+          id="panel2-header"
+        >
+          <Typography>How do I verify certificate?</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            To verify the certificate you have to enter the certificate ID only.
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
         </FAQs>
-      </Section>
-      <Section>
+      </Section2>
+      <Section2>
         <Contact>
           <h2>Get in Touch</h2>
           <p>Have a question or need assistance? Contact us!</p>
-          <Button to="/contact">Contact Us</Button>
+          <ContactForm/>
           <Link to="/aboutus">About Us</Link>
         </Contact>
-        <Link to="/about">About Us</Link>
-      </Section>
-      <Footer>
-        <div>
-          <p style={{color:"black"}}>
-            &copy; 2024 Blockchain Certification Platform. All rights reserved.
-          </p>
-        </div>
-      </Footer>
+      </Section2>
+      <Footer/>
     </Container>
   );
 }
