@@ -108,15 +108,15 @@ export default function StudentProfile({ student }) {
       );
 
       const certificatesDataArray = await Promise.all(certificateDataPromises);
-      console.log("certificare array",certificatesDataArray);
+      // console.log("certificare array",certificatesDataArray);
       let i =0;
-      const finalData = certificatesData.map((certificate)=>{
+      const finalData = certificatesDataArray.map((certificate)=>{
         certificate.id = certificateIDs[i];
         i++;
         return certificate;
       })
-      console.log("certificare",finalData);
-      setCertificatesData(certificatesDataArray);
+      // console.log("certificare",finalData);
+      setCertificatesData(finalData);
       setLoading(false);
     } catch (error) {
       toast.error("Error fetching certificate data", {
@@ -152,7 +152,7 @@ export default function StudentProfile({ student }) {
       )}
       {
       
-      isConnected && (<StyledCardsDiv><hr/> <h1>Your Certificates</h1> <hr/> <br/> <StyledCards> {certificatesData.map((certificate) => (
+      (isConnected && !loading && certificatesData.length !== 0) ? (<StyledCardsDiv><hr/> <h1>Your Certificates</h1> <hr/> <br/> <StyledCards> {certificatesData.map((certificate) => (
         <CertificateCard
           key={certificate.image} // Make sure to provide a unique key for each component
           id={certificate.id}
@@ -162,12 +162,12 @@ export default function StudentProfile({ student }) {
         />
   
       ))}
-      </StyledCards></StyledCardsDiv>)
+      </StyledCards></StyledCardsDiv>):( 
+        <p>Sorry but you are not worthy of living.</p>
+      )
       
       }
-      {isConnected && !certificatesData.length && !loading && 
-        <p>Sorry but you are not worthy of living.</p>
-      }
+      
       <ToastContainer />
     </>
   );

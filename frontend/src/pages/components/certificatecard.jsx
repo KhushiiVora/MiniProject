@@ -10,6 +10,8 @@ export default function CertificateCard({
     name, description, image, id
 }) {
 
+    
+
     const downloadCertificate = async () => {
         axios({
             url: image,
@@ -40,7 +42,7 @@ export default function CertificateCard({
                     />
                     <CardContent>
                         <Typography gutterBottom variant="h6" component="div" sx={{fontSize:"0.5rem"}} >
-                            Certificate Id: 0x23d6E35159Cc6979667577d50F1148f30bb8E01/{id}
+                            {`Certificate Id: 0x23d6E35159Cc6979667577d50F1148f30bb8E01/${id}`}
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
                             {description}

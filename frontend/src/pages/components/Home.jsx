@@ -99,24 +99,14 @@ export default function Home() {
           <h2>Get in Touch</h2>
           <p>Have a question or need assistance? Contact us!</p>
           <Button to="/contact">Contact Us</Button>
+          <Link to="/aboutus">About Us</Link>
         </Contact>
       </Section>
       <Footer>
         <div>
-          <p>
+          <p style={{color:"black"}}>
             &copy; 2024 Blockchain Certification Platform. All rights reserved.
           </p>
-          <ul>
-            <li>
-              <Link to="/about">About Us</Link>
-            </li>
-            <li>
-              <Link to="/privacy-policy">Privacy Policy</Link>
-            </li>
-            <li>
-              <Link to="/terms-of-service">Terms of Service</Link>
-            </li>
-          </ul>
         </div>
       </Footer>
     </Container>
