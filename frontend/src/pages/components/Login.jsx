@@ -109,7 +109,7 @@ export default function Login() {
       <img src={loginImage} alt="login" />
       </div>
       <form onSubmit={handleSubmit}>
-        <h1>Login page</h1>
+        <h1>Login</h1>
         <TextField
           sx={textfieldTheme}
           name="email"

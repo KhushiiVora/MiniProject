@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 const StyledDiv = styled.div`
-  margin: 2rem;
-  height: 70vh;
+  margin: 2rem 9rem;
+  height: 80vh;
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -39,6 +39,8 @@ const StyledDiv = styled.div`
 
   > form > h1 {
     margin: 1rem;
+    
+
   }
 `;
 
