@@ -1,18 +1,16 @@
 import React, { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { cleared as studentClear } from "../../state/studentSlice";
 import { cleared as instituteClear } from "../../state/instituteSlice";
 import { cleared as templateClear } from "../../state/templateSlice";
-
+import Button from "../atoms/Button";
 import { Link } from "react-router-dom";
 import {
   Container,
   Section,
   ShortInfo,
-  CTA,
-  Button,
   HowItWorks,
   FAQs,
   Contact,
@@ -22,12 +20,11 @@ import { Application } from "@splinetool/runtime";
 
 // import anything from "../../../public/room_girl_reading_copy"
 export default function Home() {
+  const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    
-
     /* LOGOUT STATE */
     if (location?.state?.instituteName) {
       dispatch(instituteClear());
@@ -47,16 +44,27 @@ export default function Home() {
             certifications.
           </p>
         </ShortInfo>
-        <div >
-          <img src="/certificate.svg"/>
+        <div>
+          <img src="/certificate.svg" />
         </div>
       </Section>
       <Section>
-        <h2>Ready to get certified?</h2>
-        <CTA>
-          <Button to="/signup">Sign Up</Button>
-          <Button to="/login">Log In</Button>
-        </CTA>
+        <div>
+          <img src="/student.svg" />
+        </div>
+        <ShortInfo>
+          <h2>Ready to get certified?</h2>
+          <Button
+            type="button"
+            text="Sign Up"
+            onClick={() => navigate("/signup")}
+          />
+          <Button
+            type="button"
+            text="Login"
+            onClick={() => navigate("/login")}
+          />
+        </ShortInfo>
       </Section>
       <Section>
         <HowItWorks>
@@ -66,6 +74,9 @@ export default function Home() {
             <Link to="/documentation">documentation</Link>.
           </p>
         </HowItWorks>
+        <div>
+          <img src="/howItWorks.svg" />
+        </div>
       </Section>
       <Section>
         <FAQs>
@@ -101,6 +112,7 @@ export default function Home() {
           <Button to="/contact">Contact Us</Button>
           <Link to="/aboutus">About Us</Link>
         </Contact>
+        <Link to="/about">About Us</Link>
       </Section>
       <Footer>
         <div>
