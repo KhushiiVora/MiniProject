@@ -80,31 +80,36 @@ export default function GenerateCertificate() {
                 transition: Slide,
               });
               var data = {
-                service_id: 'service_091mv0p',
-                template_id: 'template_63hkzbf',
-                user_id: 'szL2tKmkdmm1fZJ5W',
+                service_id: "service_091mv0p",
+                template_id: "template_63hkzbf",
+                user_id: "szL2tKmkdmm1fZJ5W",
                 template_params: {
-                  'to_name': formData.studentName,
-                  'eventName': formData.eventName,
-                  'instituteName': instituteName,
-                  'certificateDesc': formData.studentName +" "+ description + formData.eventName,
-                  'date': date,
-                  'student_email': "vorakhushi66@gmail.com",
-                  'certificateID': "0x23d6E35159Cc6979667577d50F1148f30bb8E01d/"
-                }
-            };
-             
-            axios.post('https://api.emailjs.com/api/v1.0/email/send', data, {
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-    .then(response => {
-        alert('Your mail is sent!');
-    })
-    .catch(error => {
-        alert('Oops... ' + error.message);
-    });
+                  to_name: formData.studentName,
+                  eventName: formData.eventName,
+                  instituteName: instituteName,
+                  certificateDesc:
+                    formData.studentName +
+                    " " +
+                    description +
+                    formData.eventName,
+                  date: date,
+                  student_email: "vorakhushi66@gmail.com",
+                  certificateID: "0x23d6E35159Cc6979667577d50F1148f30bb8E01d/",
+                },
+              };
+
+              axios
+                .post("https://api.emailjs.com/api/v1.0/email/send", data, {
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                })
+                .then((response) => {
+                  alert("Your mail is sent!");
+                })
+                .catch((error) => {
+                  alert("Oops... " + error.message);
+                });
             })
             .catch((error) => {
               setIsLoading(false);
@@ -226,9 +231,10 @@ export default function GenerateCertificate() {
         <>
           <StyledDiv>
             <div>
+              <h2>Generate Certificate</h2>
               <form method="post" onSubmit={handleSubmit}>
                 <TextField
-                sx={textfieldTheme}
+                  sx={textfieldTheme}
                   type="text"
                   name="studentName"
                   value={formData.studentName}
@@ -237,7 +243,7 @@ export default function GenerateCertificate() {
                   required
                 />
                 <TextField
-                sx={textfieldTheme}
+                  sx={textfieldTheme}
                   type="text"
                   name="studentWallet"
                   value={formData.studentWallet}
@@ -246,7 +252,7 @@ export default function GenerateCertificate() {
                   required
                 />
                 <TextField
-                sx={textfieldTheme}
+                  sx={textfieldTheme}
                   type="text"
                   name="eventName"
                   value={formData.eventName}
@@ -264,11 +270,14 @@ export default function GenerateCertificate() {
                     />
                   </DemoContainer>
                 </LocalizationProvider>
-                <Button type="submit" text="Generate" />
+                <div>
+                  <Button type="submit" text="Generate Certificate" />
+                </div>
               </form>
             </div>
           </StyledDiv>
           <div>
+            <h3 style={{ margin: "1rem" }}>Certificate Image Preview</h3>
             <Certificate
               instituteName={instituteName}
               title={title}
