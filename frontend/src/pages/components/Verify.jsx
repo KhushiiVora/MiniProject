@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container } from "../../styles/jsx/verify.styles";
+import { Container , Certi } from "../../styles/jsx/verify.styles";
 import CertiABI from "../../certificate.json";
 import Btn from "../atoms/Button";
 import TextField from "@mui/material/TextField";
@@ -7,20 +7,9 @@ import Web3 from "web3";
 import axios from "axios";
 import textfieldTheme from "../../styles/jsx/textfield.styles";
 import { toast, Slide, ToastContainer } from "react-toastify";
-import styled from "styled-components";
 
-const Certi = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-   
-  > img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
-`;
+
+
 
 export default function VerifyCertificate() {
 
