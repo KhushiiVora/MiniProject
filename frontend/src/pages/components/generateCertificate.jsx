@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import { StyledDiv } from "../../styles/jsx/generate-certificate.styles";
@@ -23,10 +23,14 @@ export default function GenerateCertificate() {
   const { instituteName, title, phrase, description, signature } =
     location.state;
   // console.log(template);
+  useEffect(() => {
+    console.log(import.meta.env.VITE_EMAILJS_SERVICE_ID)
+  },[])
   const [formData, setFormData] = useState({
     studentName: "",
     studentWallet: "",
     eventName: "",
+    studentEmail: "",
   });
   const [isLoading, setIsLoading] = useState(false);
   const [date, setDate] = useState(dayjs());
@@ -40,8 +44,21 @@ export default function GenerateCertificate() {
   }
 
   const handleSubmit = async (e) => {
-    setIsLoading(true);
     e.preventDefault();
+    if(typeof window.ethereum === 'undefined'){
+      toast.error("Please install metamask", {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    setFormData({ studentName: "", studentWallet: "", eventName: "", studentEmail: "" });
+      return;
+    }
+    setIsLoading(true);
     const imgData = await downloadPDF();
     await uploadimgToIPFS(imgData).then((res) => {
       console.log("res.data", res.data.IpfsHash);
@@ -49,7 +66,7 @@ export default function GenerateCertificate() {
         contractCall(res.data.IpfsHash);
       });
       setDate(dayjs());
-      setFormData({ studentName: "", studentWallet: "", eventName: "" });
+      setFormData({ studentName: "", studentWallet: "", eventName: "", studentEmail: "" });
     });
   };
 
@@ -64,8 +81,8 @@ export default function GenerateCertificate() {
           contract.methods
             .awardItem(formData.studentWallet, "https://ipfs.io/ipfs/" + hash)
             .send({ from: accounts[0] })
-            .then((transactionHash, error) => {
-              console.log(transactionHash.transactionHash);
+            .then((transaction, error) => {
+              console.log(transaction);
               setIsLoading(false);
               toast.success("Certificate Generated ", {
                 position: "bottom-center",
@@ -78,11 +95,12 @@ export default function GenerateCertificate() {
                 theme: "colored",
                 transition: Slide,
               });
+              console.log(formData);
+              
               var data = {
-                service_id: import.meta.env.VITE_SERVICE_ID,
-                template_id: import.meta.env.VITE_TEMPLATE_ID,
-                user_id: import.meta.env.VITE_USER_ID,
-
+                service_id: import.meta.env.VITE_EMAILJS_SERVICE_ID,
+                template_id: import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+                user_id: import.meta.env.VITE_EMAILJS_USER_ID,
                 template_params: {
                   to_name: formData.studentName,
                   eventName: formData.eventName,
@@ -93,8 +111,8 @@ export default function GenerateCertificate() {
                     description +
                     formData.eventName,
                   date: date,
-                  student_email: "vorakhushi66@gmail.com",
-                  certificateID: "0x23d6E35159Cc6979667577d50F1148f30bb8E01d/",
+                  student_email: formData.studentEmail,
+                  certificateID: "0x23d6E35159Cc6979667577d50F1148f30bb8E01d/"+transaction.events.CertificateCreated.returnValues[1],
                 },
               };
 
@@ -108,7 +126,7 @@ export default function GenerateCertificate() {
                   alert("Your mail is sent!");
                 })
                 .catch((error) => {
-                  alert("Oops... " + error.message);
+                  alert("Oops... " + error);
                 });
             })
             .catch((error) => {
@@ -232,7 +250,7 @@ export default function GenerateCertificate() {
           <StyledDiv>
             <div>
               <h2>Generate Certificate</h2>
-              <form method="post" onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmit}>
                 <TextField
                   sx={textfieldTheme}
                   type="text"
@@ -249,6 +267,15 @@ export default function GenerateCertificate() {
                   value={formData.studentWallet}
                   onChange={handleChange}
                   label="Student e-Wallet Address"
+                  required
+                />
+                <TextField
+                  sx={textfieldTheme}
+                  type="email"
+                  name="studentEmail"
+                  value={formData.studentEmail}
+                  onChange={handleChange}
+                  label="Student Email"
                   required
                 />
                 <TextField
