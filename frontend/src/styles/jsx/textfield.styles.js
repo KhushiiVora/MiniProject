@@ -5,7 +5,6 @@ const textfieldTheme = () => {
   return {
     width: "100%",
     m: 0.5,
-    backgroundColor: "#fff",
     // "& fieldset": {
     //   borderColor: theme.light.secondary,
     // },
