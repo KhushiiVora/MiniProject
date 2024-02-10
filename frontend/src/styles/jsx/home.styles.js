@@ -62,18 +62,20 @@ const ShortInfo = styled.div`
 
 const UsageDiv = styled.div`
   margin: 2rem;
+  height: 80vh;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 
   > div {
     display: flex;
-    padding: 1rem;
+    flex: 1 1 auto;
+    /* padding: 1rem; */
   }
 
-  img {
-    width: 100%;
-    background-color: #444;
+  > div > div {
+    padding: 1rem;
+    width: 40%;
   }
 
   p {
@@ -81,25 +83,25 @@ const UsageDiv = styled.div`
     font-size: 1rem;
   }
 
-  > div > div {
-    width: 30%;
-    margin: 0.5rem;
-    text-align: left;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-  }
-
   h1 {
     font-size: 1.5rem;
   }
 `;
-
-const ImageDiv = styled.div`
+const ImageDiv1 = styled.div`
+  background-image: url("./decentralized.jpg");
   height: 55%;
+  width: 100%;
+  background-position: center;
+  background-size: cover;
   border-radius: 10px;
   overflow: hidden;
+`;
+const ImageDiv3 = styled(ImageDiv1)`
+  background-image: url("./modern.jpg");
+`;
+
+const ImageDiv2 = styled(ImageDiv1)`
+  background-image: url("./secure.jpg");
 `;
 
 const Button = styled(Link)`
@@ -119,12 +121,36 @@ const Button = styled(Link)`
 `;
 
 const HowItWorks = styled.div`
-  text-align: center;
-  align-self: center;
-  > h2 {
-    font-size: 1.5rem;
-    color: ${({ theme }) => theme.light.secondary};
+  height: 100vh;
+
+  h2 {
+    margin: 1rem;
   }
+  > div {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  > div > div > div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  img {
+    width: 6%;
+  }
+`;
+
+const ContentDiv = styled.div`
+  border: 1px solid #444;
+  border-radius: 10px;
+  margin: 1rem;
+  width: 100%;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
 `;
 
 const FAQs = styled.div`
@@ -132,7 +158,6 @@ const FAQs = styled.div`
   > h2 {
     font-size: 1.5rem;
     margin-bottom: 1rem;
-    color: ${({ theme }) => theme.light.secondary};
   }
 `;
 
@@ -141,7 +166,6 @@ const Contact = styled.div`
   > h2 {
     font-size: 1.5rem;
     margin-bottom: 1rem;
-    color: ${({ theme }) => theme.light.secondary};
   }
   > p {
     margin-bottom: 1rem;
@@ -162,5 +186,8 @@ export {
   Contact,
   Section2,
   UsageDiv,
-  ImageDiv,
+  ImageDiv1,
+  ImageDiv2,
+  ImageDiv3,
+  ContentDiv,
 };
