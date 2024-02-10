@@ -13,7 +13,7 @@ import Typography from '@mui/material/Typography';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 
-import ContactForm from "./contactus";
+import ContactForm from "./ContactUs";
 import Footer from "./Footer";
 
 import Button from "../atoms/Button";
