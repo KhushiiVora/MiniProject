@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import { StyledDiv } from "../../styles/jsx/generate-certificate.styles";
+import textfieldTheme from "../../styles/jsx/textfield.styles";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import dayjs from "dayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -201,6 +202,7 @@ export default function GenerateCertificate() {
             <div>
               <form method="post" onSubmit={handleSubmit}>
                 <TextField
+                sx={textfieldTheme}
                   type="text"
                   name="studentName"
                   value={formData.studentName}
@@ -209,6 +211,7 @@ export default function GenerateCertificate() {
                   required
                 />
                 <TextField
+                sx={textfieldTheme}
                   type="text"
                   name="studentWallet"
                   value={formData.studentWallet}
@@ -217,6 +220,7 @@ export default function GenerateCertificate() {
                   required
                 />
                 <TextField
+                sx={textfieldTheme}
                   type="text"
                   name="eventName"
                   value={formData.eventName}
