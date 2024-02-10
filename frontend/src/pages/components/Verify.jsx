@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import {Container, Input, Button} from "../../styles/jsx/verify.styles";
+import { Container } from "../../styles/jsx/verify.styles";
 import CertiABI from "../../certificate.json";
 import Btn from "../atoms/Button";
 import TextField from "@mui/material/TextField";
 import Web3 from "web3";
 import axios from "axios";
-import { set } from "mongoose";
+import textfieldTheme from "../../styles/jsx/textfield.styles";
 import { toast, Slide, ToastContainer } from "react-toastify";
 import styled from "styled-components";
 
@@ -22,9 +22,8 @@ const Certi = styled.div`
   }
 `;
 
-
-
 export default function VerifyCertificate() {
+
         const [certificateId, setCertificateId] = useState('');
         const [verificationResult, setVerificationResult] = useState('');
         const [image, setImage] = useState('');
@@ -83,7 +82,7 @@ export default function VerifyCertificate() {
             transition: Slide,
           });
         }
-          
+   
         };
     
         return (
@@ -91,6 +90,7 @@ export default function VerifyCertificate() {
           <Container>
             <h2>Verify Certificate</h2>
             <TextField
+            sx={textfieldTheme}
             type="text"
             name="CertificateId"
             value={certificateId}
