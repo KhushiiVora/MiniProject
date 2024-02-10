@@ -2,22 +2,15 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
 const StyledMainNavbar = styled.nav`
-  border-radius: 20px;
   font-size: 1.2rem;
-  height: 9%;
+  height: 20%;
   top: 0;
   position: sticky;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.2rem;
-  background-color: #a3caf6;
-  background: linear-gradient(
-    to right,
-    ${({ theme }) => theme.light.nav.color1},
-    ${({ theme }) => theme.light.nav.color2}
-  );
   z-index: 100;
+  box-shadow: 0px 1px 5px 1px rgba(0, 0, 0, 0.5);
 `;
 
 const StyledNavLink = styled(NavLink)`
@@ -56,24 +49,20 @@ const NavButton = styled.button`
 `;
 
 const StyledLogo = styled.img`
-  height: 2rem;
-  width: 7rem;
+  height: 2.5rem;
+  width: 8rem;
 `;
 
 const StyledNavbar = styled.nav`
-  padding: 0.2rem 1rem;
-  margin-top: 0.5rem;
-  border-radius: 20px;
-  font-size: 1.2rem;
-  height: 9%;
-  top: 0;
-  position: sticky;
-  display: flex;
-  justify-content: space-between;
-  background: linear-gradient(to right, #f5d9e4, #d6d0f7);
-  backdrop-filter: blur(8px);
-  z-index: 100;
-  color: white;
+font-size: 1.2rem;
+height: 20%;
+top: 0;
+position: sticky;
+display: flex;
+justify-content: space-between;
+align-items: center;
+z-index: 100;
+box-shadow: 0px 1px 5px 1px rgba(0, 0, 0, 0.5);
 `;
 
 export { StyledMainNavbar, StyledNavbar, StyledNavLink, StyledLogo, NavButton };
