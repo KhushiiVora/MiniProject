@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import { StyledDiv } from "../../styles/jsx/generate-certificate.styles";
+import textfieldTheme from "../../styles/jsx/textfield.styles";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import dayjs from "dayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -224,43 +225,48 @@ export default function GenerateCertificate() {
       ) : (
         <>
           <StyledDiv>
-            <form method="post" onSubmit={handleSubmit}>
-              <TextField
-                type="text"
-                name="studentName"
-                value={formData.studentName}
-                onChange={handleChange}
-                label="Student Name"
-                required
-              />
-              <TextField
-                type="text"
-                name="studentWallet"
-                value={formData.studentWallet}
-                onChange={handleChange}
-                label="Student e-Wallet Address"
-                required
-              />
-              <TextField
-                type="text"
-                name="eventName"
-                value={formData.eventName}
-                onChange={handleChange}
-                label="Event Name"
-              />
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DemoContainer components={["DateField", "DateField"]}>
-                  <DateField
-                    label="Date"
-                    value={date}
-                    onChange={(newValue) => setDate(newValue)}
-                    format="LL"
-                    required
-                  />
-                </DemoContainer>
-              </LocalizationProvider>
-              <Button type="submit" text="Generate" />
-            </form>
+            <div>
+              <form method="post" onSubmit={handleSubmit}>
+                <TextField
+                sx={textfieldTheme}
+                  type="text"
+                  name="studentName"
+                  value={formData.studentName}
+                  onChange={handleChange}
+                  label="Student Name"
+                  required
+                />
+                <TextField
+                sx={textfieldTheme}
+                  type="text"
+                  name="studentWallet"
+                  value={formData.studentWallet}
+                  onChange={handleChange}
+                  label="Student e-Wallet Address"
+                  required
+                />
+                <TextField
+                sx={textfieldTheme}
+                  type="text"
+                  name="eventName"
+                  value={formData.eventName}
+                  onChange={handleChange}
+                  label="Event Name"
+                />
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DemoContainer components={["DateField", "DateField"]}>
+                    <DateField
+                      label="Date"
+                      value={date}
+                      onChange={(newValue) => setDate(newValue)}
+                      format="LL"
+                      required
+                    />
+                  </DemoContainer>
+                </LocalizationProvider>
+                <Button type="submit" text="Generate" />
+              </form>
+            </div>
           </StyledDiv>
           <div>
             <Certificate
