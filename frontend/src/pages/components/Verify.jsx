@@ -7,6 +7,20 @@ import Web3 from "web3";
 import axios from "axios";
 import { set } from "mongoose";
 import { toast, Slide, ToastContainer } from "react-toastify";
+import styled from "styled-components";
+
+const Certi = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+   
+  > img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+`;
 
 
 
@@ -14,6 +28,8 @@ export default function VerifyCertificate() {
         const [certificateId, setCertificateId] = useState('');
         const [verificationResult, setVerificationResult] = useState('');
         const [image, setImage] = useState('');
+        const [blockExplorerLink, setBlockExplorerLink] = useState('');
+        const [openseaLink, setOpenSeaLink] = useState('');
       
 
         function handleChange(e) {
@@ -21,6 +37,8 @@ export default function VerifyCertificate() {
           setImage("");
           setVerificationResult("");
           setCertificateId(value);
+          setBlockExplorerLink("");
+          setOpenSeaLink("");
         }
         // Function to handle verification
         const handleVerification = async (e) => {
@@ -36,6 +54,8 @@ export default function VerifyCertificate() {
           console.log(res);
           setImage(res.data.image);
           setVerificationResult("Verified");
+          setBlockExplorerLink("https://sepolia.etherscan.io/token/0x23d6e35159cc6979667577d50f1148f30bb8e01d?a="+parseInt(certificateId.split("/")[1]));
+          setOpenSeaLink("https://testnets.opensea.io/assets/sepolia/0x23d6e35159cc6979667577d50f1148f30bb8e01d/"+parseInt(certificateId.split("/")[1]));
           toast.success("Verified Certificate.", {
             position: "bottom-center",
             autoClose: 5000,
@@ -82,8 +102,22 @@ export default function VerifyCertificate() {
             <Btn text="Verify" type="button" onClick={handleVerification} />
             {verificationResult && (
             <p>{verificationResult}</p>)}
+            {
+              blockExplorerLink && (
+            <a href={blockExplorerLink} target="_blank" rel="noreferrer">
+              View on Etherscan
+            </a>)
+            }
+            {
+              openseaLink && (
+                <a href={openseaLink} target="_blank" rel="noreferrer">
+                  View on OpenSea
+                  </a>)
+            }
             {image && (
-            <img src={image} alt="certificate" />)
+              <Certi>
+                <img src={image} alt="certificate" />
+              </Certi>)
             }
           </Container>
           <ToastContainer />
